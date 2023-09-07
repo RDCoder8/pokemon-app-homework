@@ -1,28 +1,28 @@
-const React = require('react')
+const React = require("react");
 const myStyle = {
-    color: '#ffffff',
-    backgroundColor: '#000000',
-    };
+  color: "#ffffff",
+  backgroundColor: "#000000",
+};
 export class Index extends React.Component {
   render() {
-    const { pokemon } = this.props
+    const { pokemon } = this.props;
     return (
       <div style={myStyle}>
-        <h1 style={{textAlign: 'center'}}>
-            See All The Pokemon!
-        </h1>
+        <h1 style={{ textAlign: "center" }}>See All The Pokemon!</h1>
         <ul>
-            {pokemon.map((pokemon, i) => {
-                return (
-                    <li key={i}>
-                        {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
-                    </li>
-                )
-            })}
+          {pokemon.map((pokemon, i) => {
+            return (
+              <li key={i}>
+                <a href={`./pokemon/${i}`}>
+                  {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
-    )
+    );
   }
 }
 
-module.exports = Index
+module.exports = Index;

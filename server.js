@@ -2,9 +2,18 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT || 3000
-const pokemon = require('./models/pokemon')
+const Pokemon = require('./models/pokemon')
 const mongoose = require('mongoose')
 
+////////Database Collection
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+mongoose.connection.once("open", ()=>{
+    console.log("Linking to Pokedex!")
+})
+////////////////////////
 
 ///Engine
 app.set("view engine", "jsx")
@@ -14,14 +23,20 @@ app.engine("jsx", jsxViewEngine())
 //Middleware
 app.use(express.urlencoded({extended: false}))
 
+////////////Pokemon Express App
 //Home Page
 app.get("/", (req, res) => {
     res.send("Welcome to the Pokemon App!")
 })
 
 //Index
-app.get("/pokemon", (req, res) => {
-    res.render('Index', {pokemon})
+app.get("/pokemon", async (req, res) => {
+    try {
+        const foundPokemon = await Pokemon.find({})
+        res.status(200).render('Index', {pokemon: foundPokemon})
+    } catch (error) {
+        res.status(418).send(error)
+    }
 })
 
 //New

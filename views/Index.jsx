@@ -3,12 +3,13 @@ const myStyle = {
   color: "#ffffff",
   backgroundColor: "#000000",
 };
-export class Index extends React.Component {
+export default class Index extends React.Component {
   render() {
     const { pokemon } = this.props;
     return (
       <div style={myStyle}>
         <h1 style={{ textAlign: "center" }}>See All The Pokemon!</h1>
+        <a href="/pokemon/new">Create New Pokemon</a>
         <ul>
           {pokemon.map((pokemon, i) => {
             return (
@@ -25,4 +26,4 @@ export class Index extends React.Component {
   }
 }
 
-module.exports = Index;
+// module.exports = Index

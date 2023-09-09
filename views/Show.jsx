@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import pokemon from '../models/pokemon';
 const myStyle = {
     color: "#ffffff",
     backgroundColor: "#000000",

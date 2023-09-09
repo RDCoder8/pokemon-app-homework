@@ -32,8 +32,8 @@ app.get("/", (req, res) => {
 //Index
 app.get("/pokemon", async (req, res) => {
     try {
-        const foundPokemon = await Pokemon.find({})
-        res.status(200).render('Index', {pokemon: foundPokemon})
+        const foundAllPokemon = await Pokemon.find({})
+        res.status(200).render('Index', {pokemon: foundAllPokemon})
     } catch (error) {
         res.status(418).send(error)
     }
@@ -50,15 +50,19 @@ app.get("/pokemon/new", (req, res) => {
 
 //Create
 app.post('/pokemon', (req, res) => {
-    pokemon.push(req.body)
-    res.send("Data sent")
+    
 })
 
 //Edit
 
 //Show
-app.get("/pokemon/:id", (req, res) => {
-    res.render('Show', { pokemon: pokemon[req.params.id]} )
+app.get("/pokemon/:id", async (req, res) => {
+    try {
+        const foundPokemon = await Pokemon.findById(req.params.id)
+        res.render('Show', {pokemon: foundPokemon})
+    } catch (error) {
+        res.status(400).send(error)
+    }
 })
 
 app.listen(PORT, () => {

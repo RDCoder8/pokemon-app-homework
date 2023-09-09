@@ -49,8 +49,13 @@ app.get("/pokemon/new", (req, res) => {
 //Update
 
 //Create
-app.post('/pokemon', (req, res) => {
-    
+app.post('/pokemon', async (req, res) => {
+    try {
+        const createdPokemon = await Pokemon.create(req.body)
+        res.status(201).send(createdPokemon)
+    } catch (error) {
+        res.status(400).send(error)
+    }
 })
 
 //Edit
